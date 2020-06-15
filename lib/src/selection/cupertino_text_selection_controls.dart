@@ -315,12 +315,13 @@ class ExtendedCupertinoTextSelectionControls extends TextSelectionControls {
   /// Builder for iOS-style copy/paste text selection toolbar.
   @override
   Widget buildToolbar(
-    BuildContext context,
-    Rect globalEditableRegion,
-    double textLineHeight,
-    Offset position,
-    List<TextSelectionPoint> endpoints,
-    TextSelectionDelegate delegate,
+      BuildContext context,
+      Rect globalEditableRegion,
+      double textLineHeight,
+      Offset position,
+      List<TextSelectionPoint> endpoints,
+      TextSelectionDelegate delegate,
+      ClipboardStatusNotifier clipboardStatus,
   ) {
     assert(debugCheckHasMediaQuery(context));
     final MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -386,7 +387,7 @@ class ExtendedCupertinoTextSelectionControls extends TextSelectionControls {
 
     addToolbarButtonIfNeeded(localizations.cutButtonLabel, canCut, handleCut);
     addToolbarButtonIfNeeded(
-        localizations.copyButtonLabel, canCopy, handleCopy);
+        localizations.copyButtonLabel, canCopy, (textSelectionDelegate) => handleCopy(textSelectionDelegate, clipboardStatus));
     addToolbarButtonIfNeeded(
         localizations.pasteButtonLabel, canPaste, handlePaste);
     addToolbarButtonIfNeeded(
